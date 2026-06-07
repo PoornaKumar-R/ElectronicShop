@@ -1,0 +1,21 @@
+<nav class="navbar">
+	<div class="container">
+		<a class="brand" routerLink="/home">ElectroShop</a>
+
+		<ul class="nav-links">
+			<li><a routerLink="/home" routerLinkActive="active">Home</a></li>
+			<li><a routerLink="/orders" routerLinkActive="active">Orders</a></li>
+			<li>
+				<a routerLink="/cart" routerLinkActive="active">
+					Cart <span class="badge" *ngIf="cartCount">{{ cartCount }}</span>
+				</a>
+			</li>
+      <li class="auth-section">
+        <ng-container *ngIf="currentUser; else notLoggedIn">
+          <span class="user-name">{{ currentUser.name }}</span>
+          <button class="btn-logout" (click)="logout()">Logout</button>
+        </ng-container>
+        <ng-template #notLoggedIn>
+          <a routerLink="/login" routerLinkActive="active" class="btn-login">Login</a>
+        </ng-template>
+      </li>

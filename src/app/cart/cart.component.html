@@ -1,0 +1,63 @@
+<div class="cart-container">
+  <h1 class="title">Shopping Cart</h1>
+
+  <div *ngIf="!isLoggedIn" class="login-prompt">
+    <p>Please <a routerLink="/login" class="link">login</a> to proceed with checkout</p>
+  </div>
+
+  <div *ngIf="cartItems.length === 0" class="empty-cart">
+    <p>Your cart is empty</p>
+  </div>
+
+  <div *ngIf="cartItems.length > 0" class="cart-content">
+    <table class="cart-table">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Total</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of cartItems" class="cart-item">
+          <td class="product-cell">
+            <img [src]="item.image" [alt]="item.name" class="product-image" />
+            <span>{{ item.name }}</span>
+          </td>
+          <td class="price">₹{{ item.price | number }}</td>
+          <td class="quantity">
+            <input 
+              type="number" 
+              min="1" 
+              [value]="item.quantity"
+              (change)="updateQuantity(item.id, $any($event.target).value)"
+              class="qty-input"
+            />
+          </td>
+          <td class="total">₹{{ (item.price * item.quantity) | number }}</td>
+          <td class="action">
+            <button class="btn-remove" (click)="removeItem(item.id)">Remove</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="cart-summary">
+      <div class="summary-row">
+        <span class="label">Subtotal:</span>
+        <span class="value">₹{{ total | number }}</span>
+      </div>
+      <div class="summary-row">
+        <span class="label">Shipping:</span>
+        <span class="value">Free</span>
+      </div>
+      <div class="summary-row total-row">
+        <span class="label">Total:</span>
+        <span class="value">₹{{ total | number }}</span>
+      </div>
+      <button class="btn-checkout" (click)="checkout()">Checkout</button>
+    </div>
+  </div>
+</div>

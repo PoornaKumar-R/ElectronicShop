@@ -1,0 +1,103 @@
+<div class="auth-container">
+  <div class="auth-card">
+    <h1 class="title">{{ isLoginMode ? 'Login' : 'Sign Up' }}</h1>
+
+    <div *ngIf="message" [ngClass]="'message ' + messageType">
+      {{ message }}
+    </div>
+
+    <!-- Login Form -->
+    <form *ngIf="isLoginMode" (ngSubmit)="onLogin()" class="auth-form">
+      <div class="form-group">
+        <label for="loginEmail">Email</label>
+        <input
+          type="email"
+          id="loginEmail"
+          [(ngModel)]="loginEmail"
+          name="loginEmail"
+          placeholder="Enter your email"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="loginPassword">Password</label>
+        <input
+          type="password"
+          id="loginPassword"
+          [(ngModel)]="loginPassword"
+          name="loginPassword"
+          placeholder="Enter your password"
+          required
+        />
+      </div>
+
+      <button type="submit" class="btn-primary" [disabled]="!loginEmail || !loginPassword">
+        Login
+      </button>
+    </form>
+
+    <!-- Signup Form -->
+    <form *ngIf="!isLoginMode" (ngSubmit)="onSignup()" class="auth-form">
+      <div class="form-group">
+        <label for="signupName">Full Name</label>
+        <input
+          type="text"
+          id="signupName"
+          [(ngModel)]="signupName"
+          name="signupName"
+          placeholder="Enter your full name"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="signupEmail">Email</label>
+        <input
+          type="email"
+          id="signupEmail"
+          [(ngModel)]="signupEmail"
+          name="signupEmail"
+          placeholder="Enter your email"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="signupPassword">Password</label>
+        <input
+          type="password"
+          id="signupPassword"
+          [(ngModel)]="signupPassword"
+          name="signupPassword"
+          placeholder="Minimum 6 characters"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="signupPasswordConfirm">Confirm Password</label>
+        <input
+          type="password"
+          id="signupPasswordConfirm"
+          [(ngModel)]="signupPasswordConfirm"
+          name="signupPasswordConfirm"
+          placeholder="Confirm your password"
+          required
+        />
+      </div>
+
+      <button type="submit" class="btn-primary" [disabled]="!signupName || !signupEmail || !signupPassword || !signupPasswordConfirm">
+        Sign Up
+      </button>
+    </form>
+
+    <!-- Toggle Link -->
+    <p class="toggle-link">
+      {{ isLoginMode ? "Don't have an account?" : 'Already have an account?' }}
+      <a (click)="toggleMode()" class="link">
+        {{ isLoginMode ? 'Sign Up' : 'Login' }}
+      </a>
+    </p>
+  </div>
+</div>
